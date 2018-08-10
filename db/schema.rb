@@ -12,12 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2018_08_08_193612) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "actions", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "contract_id"
+    t.integer "user_id"
+    t.integer "contract_id"
     t.string "action_type"
     t.string "action_hash"
     t.string "previous_hash"
@@ -28,7 +25,7 @@ ActiveRecord::Schema.define(version: 2018_08_08_193612) do
   end
 
   create_table "contracts", force: :cascade do |t|
-    t.bigint "user_id"
+    t.integer "user_id"
     t.integer "recipient_id"
     t.text "content"
     t.string "status"
@@ -49,7 +46,4 @@ ActiveRecord::Schema.define(version: 2018_08_08_193612) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "actions", "contracts"
-  add_foreign_key "actions", "users"
-  add_foreign_key "contracts", "users"
 end
