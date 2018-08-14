@@ -1,7 +1,12 @@
 class Contract < ApplicationRecord
   belongs_to :user
+  belongs_to :recipient, class_name: "User"
   has_many :actions
   after_create :create_action
+
+  def compile_contract
+    self.content
+  end
 
   private
   def create_action

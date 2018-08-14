@@ -1,8 +1,23 @@
 class Api::V1::ContractsController < ApplicationController
 
-  def index
-    @contracts = Contract.all
-    render json: @contracts
+  def incoming
+    @user = current_user
+    if @user
+      @incoming_contracts = @user.incoming_contracts
+      render json: @incoming_contracts, each_serializer: ContractSerializer
+    else
+      render json: false.to_json, status: :unauthorized
+    end
+  end
+
+  def outcoming
+    @user = current_user
+    if @user
+      @outcoming_contracts = @user.outcoming_contracts
+      render json: @outcoming_contracts, each_serializer: ContractSerializer
+    else
+      render json: false.to_json, status: :unauthorized
+    end
   end
 
   def update
