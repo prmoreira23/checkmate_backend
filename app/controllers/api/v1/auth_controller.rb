@@ -9,6 +9,10 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
+  def get_current_user
+    render json: current_user
+  end
+
   private
   def set_user
     @user = User.find_by(email: params[:email])
