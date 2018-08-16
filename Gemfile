@@ -17,6 +17,13 @@ gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'active_model_serializers', '0.9.3'
+
+
+# PDF generator
+gem 'wicked_pdf', '~> 1.1'
+gem 'wkhtmltopdf-binary'
+
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

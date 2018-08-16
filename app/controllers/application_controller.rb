@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::Serialization
+  include ActionController::MimeResponds
 
   def issue_token(payload)
     JWT.encode(payload, secret)

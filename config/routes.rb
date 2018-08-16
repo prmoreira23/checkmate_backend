@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'downloads/show'
-  get 'downloads/contract_pdf'
-  get 'downloads/send_contract_pdf'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
@@ -11,6 +8,8 @@ Rails.application.routes.draw do
       post "/contracts", to: "contracts#create"
       post "/auth", to: "auth#login"
       get "/current_user", to: 'auth#get_current_user'
+      get "/pdf", to: 'contracts#get_pdf'
+      get "/get_pdf", to: 'contracts#download'
     end
   end
 end
