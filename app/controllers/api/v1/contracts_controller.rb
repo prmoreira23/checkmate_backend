@@ -16,7 +16,7 @@ class Api::V1::ContractsController < ApplicationController
 
   def get_pdf
     @contract = Contract.find_by(id: request.headers["id"])
-    pdf = WickedPdf.new.pdf_from_string("<strong>#{@contract.title}</strong>")
+    pdf = WickedPdf.new.pdf_from_string("<h1>#{@contract.title}</h1>")
     send_data pdf, filename: "#{@contract.title}.#{Time.now}.pdf"
   end
 
