@@ -1,0 +1,2 @@
+class ContractPdf < ApplicationRecord
+end

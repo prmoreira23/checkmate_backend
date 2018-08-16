@@ -3,6 +3,7 @@ class Contract < ApplicationRecord
   belongs_to :recipient, class_name: "User"
   has_many :actions
   after_create :create_action
+  validates :user, :recipient, presence: true
 
   def compile_contract
     self.content

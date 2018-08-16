@@ -1,5 +1,19 @@
 class Api::V1::ContractsController < ApplicationController
 
+  def create
+    @user = current_user
+    if @user
+      @contract = @user.outcoming_contracts.build(contract_params)
+      if @contract && @contract.save
+        render json: @contract, status: :created
+      else
+        render json: { errors: @contract.errors.full_messages }, status: :unprocessible_entity
+      end
+    else
+      render json: false.to_json, status: :unauthorized
+    end
+  end
+
   def incoming
     @user = current_user
     if @user
@@ -32,7 +46,7 @@ class Api::V1::ContractsController < ApplicationController
   private
 
   def contract_params
-    params.require(:contract).permit(:user_id, :recipient_id, :content, :status)
+    params.require(:contract).permit(:recipient_id, :title, :content)
   end
 
   def find_contract
