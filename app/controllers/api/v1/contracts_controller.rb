@@ -16,7 +16,14 @@ class Api::V1::ContractsController < ApplicationController
 
   def get_pdf
     @contract = Contract.find_by(id: request.headers["id"])
-    pdf = WickedPdf.new.pdf_from_string("<h1>#{@contract.title}</h1>")
+    content = <<-HTML
+      <h1 style="font-size:100px">#{@contract.title}</h1>
+      <p style="font-size:40px">Author: #{@contract.user.full_name}</p>
+      <p style="font-size:40px">Recipient: #{@contract.recipient.full_name}</p>
+      <p style="font-size:40px">Content: #{@contract.content}</p>
+    HTML
+
+    pdf = WickedPdf.new.pdf_from_string(content)
     send_data pdf, filename: "#{@contract.title}.#{Time.now}.pdf"
   end
 
@@ -28,6 +35,10 @@ class Api::V1::ContractsController < ApplicationController
     else
       render json: false.to_json, status: :unauthorized
     end
+  end
+
+  def check_pdf
+    render json: {sha256: Digest::SHA256.file(params["file"].tempfile).hexdigest}
   end
 
   def outcoming

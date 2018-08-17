@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get "/current_user", to: 'auth#get_current_user'
       get "/pdf", to: 'contracts#get_pdf'
       get "/get_pdf", to: 'contracts#download'
+      post "/check", to: 'contracts#check_pdf'
     end
   end
 end
