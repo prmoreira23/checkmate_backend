@@ -17,8 +17,12 @@ class Api::V1::ContractsController < ApplicationController
   def get_pdf
     @contract = Contract.find_by(id: request.headers["id"])
 
-    pdf = generate_pdf(@contract)
-    send_data pdf, filename: "#{@contract.title}.#{Time.now}.pdf"
+    pdf = File.open(@contract.pdf, "rb")
+    begin
+      send_file pdf, filename: "#{@contract.title}.#{Time.now}.pdf"
+    ensure
+      pdf.close
+    end
   end
 
   def incoming
@@ -32,7 +36,9 @@ class Api::V1::ContractsController < ApplicationController
   end
 
   def check_pdf
-    render json: {sha256: Digest::SHA256.file(params["file"].tempfile).hexdigest}
+    contract_hash = Digest::SHA256.file(params["file"].tempfile).hexdigest
+    contract = Contract.find_by(contract_hash: contract_hash)
+    render json: contract
   end
 
   def outcoming
