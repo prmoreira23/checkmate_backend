@@ -18,9 +18,9 @@ class Api::V1::ContractsController < ApplicationController
     contract_id = request.headers['id']
     contract = Contract.find_by(id: contract_id)
     if contract
-      action = c.actions.build(user: current_user)
+      action = contract.actions.build(user: current_user)
       action.save
-      render json: action, status: :created
+      render json: contract, status: :created
     end
   end
 

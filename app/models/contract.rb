@@ -13,7 +13,7 @@ class Contract < ApplicationRecord
     when 2
       self.actions.last.user_id != self.user_id ? "REQUIRES USER'S SIGNATURE" : "REQUIRES RECIPIENT'S SIGNATURE"
     when 3
-      "CONTRACT SUCCESFULLY BINDED"
+      "CONTRACT SUCCESSFULLY BINDED"
     end
   end
 
