@@ -6,7 +6,6 @@ class Action < ApplicationRecord
   private
   def func_before_create
     prev_hash = Action.last && Action.last.action_hash
-    byebug
     data = {
       user_id: self.contract.user_id,
       recipient_id: self.contract.recipient_id,

@@ -11,7 +11,7 @@ class Contract < ApplicationRecord
     when 1
       "REQUIRES BOTH PARTIES' SIGNATURES"
     when 2
-      self.actions.last.user_id === self.user.id ? "REQUIRES USER'S SIGNATURE" : "REQUIRES RECIPIENT'S SIGNATURE"
+      self.actions.last.user_id != self.user_id ? "REQUIRES USER'S SIGNATURE" : "REQUIRES RECIPIENT'S SIGNATURE"
     when 3
       "CONTRACT SUCCESFULLY BINDED"
     end
