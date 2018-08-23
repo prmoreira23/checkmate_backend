@@ -38,7 +38,11 @@ class Api::V1::ContractsController < ApplicationController
   def check_pdf
     contract_hash = Digest::SHA256.file(params["file"].tempfile).hexdigest
     contract = Contract.find_by(contract_hash: contract_hash)
-    render json: contract
+    if contract
+      render json: contract
+    else
+      render json: {current_contract: {contract_hash: contract_hash}}
+    end
   end
 
   def outcoming
