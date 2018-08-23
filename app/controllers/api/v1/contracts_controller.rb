@@ -41,7 +41,7 @@ class Api::V1::ContractsController < ApplicationController
     if contract
       render json: contract
     else
-      render json: {current_contract: {contract_hash: contract_hash}}
+      render json: {contract: {contract_hash: contract_hash}}
     end
   end
 

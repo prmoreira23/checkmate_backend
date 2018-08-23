@@ -6,6 +6,17 @@ class Contract < ApplicationRecord
   before_create :before_create_action
   validates :user, :recipient, presence: true
 
+  def status
+    case self.actions.size
+    when 1
+      "REQUIRES BOTH PARTIES' SIGNATURES"
+    when 2
+      self.actions.last.user_id === self.user.id ? "REQUIRES USER'S SIGNATURE" : "REQUIRES RECIPIENT'S SIGNATURE"
+    when 3
+      "CONTRACT SUCCESFULLY BINDED"
+    end
+  end
+
   def generate_pdf
     content = <<-HTML
       <h1 style="font-size:100px">#{self.title}</h1>
@@ -35,13 +46,7 @@ class Contract < ApplicationRecord
   end
 
   def create_action
-    data = {
-      user_id: self.user.id,
-      recipient_id: self.recipient_id,
-      contract_hash: self.contract_hash,
-      previous_hash: Action.last && Action.last.action_hash
-    }
-    action = self.actions.build(action_type: "CREATE_CONTRACT", user: self.user, action_hash: Digest::SHA256.hexdigest(data.to_json), previous_hash: Action.last && Action.last.action_hash)
+    action = self.actions.build(action_type: "CONTRACT_CREATED", user: self.user)
     action.save
   end
 end
