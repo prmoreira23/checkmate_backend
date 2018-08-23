@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get "/pdf", to: 'contracts#get_pdf'
       get "/get_pdf", to: 'contracts#download'
       post "/check", to: 'contracts#check_pdf'
+      post "/sign_contract", to: "contracts#sign_contract"
     end
   end
 end

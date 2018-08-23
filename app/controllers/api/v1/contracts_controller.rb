@@ -14,6 +14,16 @@ class Api::V1::ContractsController < ApplicationController
     end
   end
 
+  def sign_contract
+    contract_id = request.headers['id']
+    contract = Contract.find_by(id: contract_id)
+    if contract
+      action = c.actions.build(user: current_user)
+      action.save
+      render json: action, status: :created
+    end
+  end
+
   def get_pdf
     @contract = Contract.find_by(id: request.headers["id"])
 
