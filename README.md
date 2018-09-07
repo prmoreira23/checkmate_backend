@@ -1,25 +1,5 @@
-# README
+# CheckNSign
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the backend part of the CheckNSign App. 
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# checkmate_backend
+Imagine DocuSign but with privacy; CheckMate is for DocuSign what DuckDuckGo is for Google. The idea is to allow people to exchange and sign contracts and then immediately dispose of the sensitive data in the server so they can have real privacy. Also, CheckMate makes use of blockchain to guarantee integrity and validity of transactions.
